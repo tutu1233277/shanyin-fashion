@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shanyin Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Manrope:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Arizonia&family=Bonheur+Royale&family=Cantarell:ital,wght@0,400;0,700;1,400;1,700&family=Coming+Soon&family=Corinthia:wght@400;700&family=Ephesis&family=Estonia&family=Felipa&family=Gamja+Flower&family=Italianno&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Licorice&family=Love+Light&family=Lugrasimo&family=Merienda:wght@300..900&family=Mrs+Saint+Delafield&family=Norican&family=Schoolbell&family=Shadows+Into+Light&family=Special+Elite&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="cover-page">
+    <main class="home-shell">
+      <section class="cover-shell" data-state="idle" id="home">
+        <nav class="side-nav" aria-label="Main navigation">
+          <a class="side-nav-item" href="#home"><span class="side-nav-index">01</span><span class="side-nav-label">Home</span></a>
+          <a class="side-nav-item" href="#projects"><span class="side-nav-index">02</span><span class="side-nav-label">Projects</span></a>
+          <a class="side-nav-item" href="#exhibitions"><span class="side-nav-index">03</span><span class="side-nav-label">Exhibitions</span></a>
+          <a class="side-nav-item" href="#about"><span class="side-nav-index">04</span><span class="side-nav-label">About</span></a>
+          <a class="side-nav-item" href="#contact"><span class="side-nav-index">05</span><span class="side-nav-label">Contact</span></a>
+        </nav>
+
+        <div class="background-layer" aria-hidden="true">
+        </div>
+
+        <div class="background-copy">
+          <p class="background-title">Hi, I'm Shanyin</p>
+          <p class="background-subtitle">
+            Visual Communicators &amp;<br />
+            Design Curator &amp;<br />
+            Art Director &amp;<br />
+            Fashion Stylist
+          </p>
+        </div>
+
+        <div class="background-gradient" aria-hidden="true"></div>
+
+        <button
+          class="vinyl-trigger"
+          id="vinylTrigger"
+          type="button"
+          aria-label="Open the album cover"
+        >
+          <span class="vinyl-inner" id="vinylInner">
+            <img
+              class="vinyl vinyl-state vinyl-state-1"
+              src="黑胶唱片1.png"
+              alt="黑胶唱片封面与半露出的唱片"
+            />
+            <span class="vinyl-spin-layer" id="vinylSpinLayer">
+              <img
+                class="vinyl vinyl-state vinyl-state-2"
+                src="黑胶唱片2.png"
+                alt="完整黑胶唱片"
+              />
+            </span>
+          </span>
+        </button>
+
+        <section class="gallery-viewport" id="galleryViewport" aria-label="首图封面图">
+          <div class="gallery-track" id="galleryTrack"></div>
+          <div class="gallery-hit-layer" id="galleryHitLayer" aria-hidden="true"></div>
+        </section>
+      </section>
+
+      <section class="project-two-panel" id="projects" aria-label="Home second page" data-state="closed"></section>
+      <section id="exhibitions"></section>
+      <section id="about"></section>
+      <section id="contact"></section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
