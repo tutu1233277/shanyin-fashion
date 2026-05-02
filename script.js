@@ -8,6 +8,7 @@ const backgroundLayer = document.querySelector(".background-layer");
 const galleryViewport = document.getElementById("galleryViewport");
 const galleryTrack = document.getElementById("galleryTrack");
 const galleryHitLayer = document.getElementById("galleryHitLayer");
+const siteGradient = document.getElementById("siteGradient");
 const projectTwoPanel = document.getElementById("projectTwoPanel");
 
 const spreadItems = [
@@ -572,6 +573,17 @@ function resetProjectTwoScene() {
   projectTwoPanel.dataset.state = "closed";
 }
 
+function syncGradientState() {
+  if (!siteGradient) {
+    return;
+  }
+
+  const inSecondPage = window.scrollY >= window.innerHeight * 0.45;
+
+  siteGradient.classList.toggle("site-gradient-pink", inSecondPage);
+  siteGradient.classList.toggle("site-gradient-blue", !inSecondPage);
+}
+
 function stopLoop() {
   if (rafId) {
     window.cancelAnimationFrame(rafId);
@@ -602,6 +614,7 @@ function setupCover() {
 }
 
 setupCover();
+syncGradientState();
 
 window.addEventListener("resize", () => {
   stopLoop();
@@ -618,7 +631,16 @@ window.addEventListener("resize", () => {
 
   applyGridLayout(false);
   window.setTimeout(startLoop, 80);
+  syncGradientState();
 });
+
+window.addEventListener(
+  "scroll",
+  () => {
+    syncGradientState();
+  },
+  { passive: true }
+);
 
 vinylTrigger?.addEventListener("click", () => {
   if (!coverShell || stage !== "idle" || typeof gsap === "undefined") {
