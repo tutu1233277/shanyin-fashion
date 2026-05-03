@@ -50,8 +50,8 @@ html {
   background: linear-gradient(180deg, rgba(79, 141, 255, 0) 0%, rgba(79, 141, 255, 0.2) 34%, rgba(30, 92, 221, 0.82) 100%);
 }
 
-.site-gradient-pink {
-  background: linear-gradient(180deg, rgba(255, 132, 196, 0) 0%, rgba(255, 132, 196, 0.2) 34%, rgba(237, 71, 164, 0.82) 100%);
+.site-gradient-green {
+  background: linear-gradient(180deg, rgba(102, 205, 132, 0) 0%, rgba(102, 205, 132, 0.22) 34%, rgba(35, 160, 88, 0.84) 100%);
 }
 
 img,
@@ -72,7 +72,7 @@ button {
 }
 
 .side-nav {
-  position: absolute;
+  position: fixed;
   top: 24px;
   left: 50%;
   transform: translateX(-50%);
@@ -116,7 +116,7 @@ button {
   top: 118px;
   left: 68px;
   right: 68px;
-  z-index: 30;
+  z-index: 3;
   width: auto;
   color: #fff;
   display: flex;
@@ -245,16 +245,22 @@ button {
   animation: vinyl-spin 5.8s linear infinite;
 }
 
-.gallery-viewport {
+.hero-gallery-viewport {
   position: absolute;
   inset: 0;
-  z-index: 2;
+  z-index: 12;
   overflow: hidden;
   opacity: 0;
+  pointer-events: none;
   will-change: opacity;
   backface-visibility: hidden;
 }
 
+.cover-shell[data-state="open"] .hero-gallery-viewport {
+  pointer-events: auto;
+}
+
+.hero-gallery-track,
 .gallery-track {
   position: absolute;
   inset: 0;
@@ -285,6 +291,16 @@ button {
   transform-style: preserve-3d;
   contain: layout paint style;
   pointer-events: none;
+}
+
+.hero-card {
+  pointer-events: auto;
+}
+
+.hero-card a,
+.hero-card div {
+  display: block;
+  width: 100%;
 }
 
 .orbit-card-duplicate {
@@ -368,12 +384,18 @@ button {
 .project-two-panel {
   position: relative;
   min-height: 100vh;
-  overflow: hidden;
-  background:
-    radial-gradient(circle at top, rgba(254, 248, 234, 0.96), rgba(255, 255, 255, 0.84)),
-    #fffaf1;
+  overflow: visible;
+  background: transparent;
+  z-index: 2;
   opacity: 1;
   pointer-events: auto;
+}
+
+.project-gallery-viewport {
+  position: relative;
+  inset: 0;
+  overflow: visible;
+  z-index: 2;
 }
 
 .project-two-panel.is-visible {
