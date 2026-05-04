@@ -117,6 +117,79 @@ button {
   pointer-events: none;
 }
 
+.detail-rail {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 24;
+  width: 230px;
+  padding: 44px 10px 36px 38px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  background: transparent;
+}
+
+.detail-rail-signature {
+  width: 148px;
+  height: auto;
+  margin: 0 0 58px;
+  margin-left: -8px;
+}
+
+.detail-rail-nav {
+  width: 148px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.detail-rail-nav a {
+  color: #c9c9c9;
+  font-family: "Lato", sans-serif;
+  font-size: clamp(18px, 1.4vw, 26px);
+  line-height: 1;
+  font-weight: 400;
+  text-decoration: none;
+  letter-spacing: -0.04em;
+  text-align: left;
+}
+
+.detail-rail-contact {
+  display: flex;
+  gap: 10px;
+  margin-top: 18px;
+  width: 148px;
+  justify-content: flex-start;
+}
+
+.detail-social-link {
+  width: 24px;
+  height: 24px;
+  display: grid;
+  place-items: center;
+  color: #c9c9c9;
+  text-decoration: none;
+}
+
+.detail-social-link svg {
+  width: 20px;
+  height: 20px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.detail-social-link span {
+  font-size: 13px;
+  line-height: 1;
+  font-weight: 600;
+}
+
 .background-layer {
   position: absolute;
   inset: 0;
@@ -526,24 +599,27 @@ button {
 }
 
 .detail-shell {
-  width: min(1280px, calc(100vw - 48px));
-  margin: 0 auto;
-  padding: 110px 0 64px;
+  width: calc(100vw - 230px);
+  margin: 0 0 0 230px;
+  padding: 48px 52px 64px 0;
 }
 
 .detail-layout {
   display: grid;
-  grid-template-columns: minmax(320px, 1fr) minmax(0, 1.08fr);
-  gap: 52px;
+  grid-template-columns: minmax(360px, 0.98fr) minmax(380px, 1.12fr);
+  gap: 22px;
   align-items: start;
 }
 
 .detail-sidebar {
   position: sticky;
-  top: 110px;
+  top: 48px;
+  min-height: calc(100vh - 96px);
+  padding: 0 40px 0 28px;
   display: grid;
   gap: 18px;
   align-content: start;
+  border-right: 1px solid rgba(23, 23, 23, 0.26);
 }
 
 .detail-sidebar h1 {
@@ -592,7 +668,34 @@ button {
 
 .detail-media-stack {
   display: grid;
+  gap: 36px;
+  padding-left: 0;
+  max-width: 920px;
+}
+
+.detail-project-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
   gap: 24px;
+  padding: 0 0 14px;
+  border-bottom: 1px solid rgba(23, 23, 23, 0.22);
+}
+
+.detail-project-header h1 {
+  margin: 0;
+  font-size: clamp(18px, 1.5vw, 26px);
+  line-height: 1.12;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.detail-project-header p {
+  margin: 0;
+  flex: 0 0 auto;
+  font-size: 15px;
+  line-height: 1;
+  color: rgba(23, 23, 23, 0.58);
 }
 
 .detail-media-item {
@@ -600,7 +703,7 @@ button {
   border-radius: 0;
   overflow: hidden;
   background: rgba(255, 255, 255, 0.8);
-  box-shadow: 0 12px 34px rgba(0, 0, 0, 0.08);
+  box-shadow: none;
 }
 
 .detail-media-item img,
@@ -688,9 +791,51 @@ button {
     gap: 28px;
   }
 
+  .detail-rail {
+    position: relative;
+    width: auto;
+    min-height: auto;
+    padding: 28px 24px 18px;
+    display: flex;
+    gap: 0;
+  }
+
+  .detail-rail-signature {
+    width: 112px;
+    margin-bottom: 22px;
+  }
+
+  .detail-rail-nav {
+    width: auto;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    gap: 14px 22px;
+    justify-content: flex-start;
+  }
+
+  .detail-rail-nav a {
+    font-size: 18px;
+  }
+
+  .detail-rail-contact {
+    width: auto;
+    justify-content: flex-start;
+    margin-top: 14px;
+  }
+
+  .detail-shell {
+    width: min(100vw - 32px, 980px);
+    margin: 0 auto;
+    padding: 24px 0 48px;
+  }
+
   .detail-sidebar {
     position: relative;
     top: auto;
+    min-height: auto;
+    padding: 0;
+    border-right: 0;
   }
 
   .signature-mark {
@@ -743,10 +888,6 @@ button {
     font-size: 14px;
   }
 
-  .detail-page .side-nav {
-    right: 96px;
-  }
-
   .hero-copy h1,
   .detail-header h1 {
     font-size: clamp(36px, 14vw, 62px);
@@ -763,8 +904,19 @@ button {
 
   .detail-shell {
     width: min(100vw - 24px, 1280px);
-    padding-top: 118px;
+    padding-top: 22px;
     padding-bottom: 40px;
+  }
+
+  .detail-project-header {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .detail-text-block p,
+  .detail-award {
+    font-size: 15px;
   }
 
   .detail-grid {

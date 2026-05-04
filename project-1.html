@@ -13,19 +13,29 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body class="detail-page">
-    <nav class="side-nav" aria-label="Main navigation">
-      <a class="side-nav-item" href="index.html#home"><span class="side-nav-label">Home</span></a>
-      <a class="side-nav-item" href="index.html#projects"><span class="side-nav-label">Projects</span></a>
-      <a class="side-nav-item" href="index.html#exhibitions"><span class="side-nav-label">Exhibitions</span></a>
-      <a class="side-nav-item" href="index.html#about"><span class="side-nav-label">About</span></a>
-      <a class="side-nav-item" href="index.html#contact"><span class="side-nav-label">Contact</span></a>
-    </nav>
-    <img class="signature-mark" src="签名.png" alt="" />
-
+    <aside class="detail-rail" aria-label="Portfolio navigation">
+      <img class="detail-rail-signature" src="签名.png" alt="Shanyin Lei" />
+      <nav class="detail-rail-nav">
+        <a href="index.html#home">Home</a>
+        <a href="index.html#projects">Project</a>
+        <a href="index.html#exhibitions">Exhibition</a>
+        <a href="index.html#about">About</a>
+        <a href="index.html#contact">Contact</a>
+      </nav>
+      <div class="detail-rail-contact" aria-label="Contact links">
+        <a class="detail-social-link" href="https://www.instagram.com/vicky_lei10/" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="5" width="14" height="14" rx="4"></rect><circle cx="12" cy="12" r="3.2"></circle><path d="M16.7 7.4h.1"></path></svg>
+        </a>
+        <a class="detail-social-link" href="https://xhslink.com/m/3OLsiYLovVS" aria-label="Xiaohongshu">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4.5" y="5" width="15" height="14" rx="2.4"></rect><path d="M8 9h8M8 13h5M16 13l-2.2 3"></path></svg>
+        </a>
+        <a class="detail-social-link" href="mailto:vicky1010@gmail.com" aria-label="Email">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="6" width="16" height="12" rx="2"></rect><path d="m5 8 7 5 7-5"></path></svg>
+        </a>
+      </div>
+    </aside>
     <main class="detail-shell detail-layout">
       <aside class="detail-sidebar">
-        <h1>Dream Archive</h1>
-
         <section class="detail-text-block">
           <p>
             This project develops a participatory dream drawing workshop that helps people externalise dream experience through images, colour, and atmosphere, without relying on fixed interpretation.
@@ -46,6 +56,10 @@
       </aside>
 
       <section class="detail-media-stack" aria-label="Dream Archive images">
+        <header class="detail-project-header">
+          <h1>Dream Archive</h1>
+          <p>2026.1</p>
+        </header>
         <figure class="detail-media-item detail-media-feature"><img src="主项目1/第一张.jpg" alt="Dream Archive cover image" /></figure>
         <figure class="detail-media-item"><img src="主项目1/Untitled-311.jpg" alt="Dream Archive image 1" /></figure>
         <figure class="detail-media-item"><img src="主项目1/4 copy.jpg" alt="Dream Archive image 2" /></figure>
