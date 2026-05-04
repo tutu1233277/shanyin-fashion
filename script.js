@@ -34,13 +34,12 @@ const allItems = [
 ];
 
 const heroItems = [
-  allItems[0],
-  allItems[1],
-  allItems[3],
-  allItems[5],
-  allItems[8],
-  allItems[12],
-  allItems[16]
+  { src: "主项目3 /第一张.png", href: "project-3.html" },
+  { src: "项目5/第一张.JPG", href: "project-5.html" },
+  { src: "主项目4/第一张.jpg", href: "project-4.html" },
+  { src: "主项目1/第一张.jpg", href: "project-1.html" },
+  { src: "主项目2/第一张.PNG", href: "project-2.html" },
+  { src: "主项目1/第一张.jpg" }
 ];
 
 const burstStagger = 0.035;
@@ -146,9 +145,6 @@ function createProjectHitArea(item, index, duplicate = false) {
     hit.setAttribute("aria-hidden", "true");
   }
 
-  hit.addEventListener("pointerenter", () => focusProjectCard(index, duplicate));
-  hit.addEventListener("pointerleave", clearProjectFocus);
-
   if (!item.href) {
     hit.addEventListener("click", (event) => {
       event.preventDefault();
@@ -245,22 +241,20 @@ function getHeroLayoutData() {
   const mobile = window.innerWidth < 720;
   const templates = mobile
     ? [
-        { x: 0.26, y: 0.44, w: 0.24, r: -8 },
-        { x: 0.46, y: 0.27, w: 0.22, r: -2 },
-        { x: 0.67, y: 0.29, w: 0.24, r: 1 },
-        { x: 0.62, y: 0.55, w: 0.24, r: 2 },
-        { x: 0.3, y: 0.64, w: 0.24, r: -5 },
-        { x: 0.42, y: 0.8, w: 0.26, r: -7 },
-        { x: 0.66, y: 0.8, w: 0.24, r: -2 }
+        { x: 0.47, y: 0.38, w: 0.32, r: -7 },
+        { x: 0.68, y: 0.48, w: 0.22, r: 8 },
+        { x: 0.37, y: 0.62, w: 0.21, r: -12 },
+        { x: 0.54, y: 0.6, w: 0.29, r: 0 },
+        { x: 0.71, y: 0.66, w: 0.23, r: -5 },
+        { x: 0.57, y: 0.8, w: 0.23, r: 6 }
       ]
     : [
-        { x: 0.24, y: 0.45, w: 0.13, r: -10 },
-        { x: 0.33, y: 0.27, w: 0.12, r: -2 },
-        { x: 0.49, y: 0.3, w: 0.14, r: 1 },
-        { x: 0.67, y: 0.31, w: 0.12, r: 1 },
-        { x: 0.46, y: 0.53, w: 0.14, r: -1 },
-        { x: 0.62, y: 0.61, w: 0.15, r: 2 },
-        { x: 0.35, y: 0.76, w: 0.14, r: -8 }
+        { x: 0.45, y: 0.39, w: 0.24, r: -8 },
+        { x: 0.64, y: 0.48, w: 0.17, r: 10 },
+        { x: 0.34, y: 0.64, w: 0.14, r: -14 },
+        { x: 0.52, y: 0.62, w: 0.2, r: 0 },
+        { x: 0.69, y: 0.67, w: 0.17, r: -5 },
+        { x: 0.56, y: 0.82, w: 0.16, r: 7 }
       ];
 
   return heroItems.map((item, index) => {
@@ -272,7 +266,7 @@ function getHeroLayoutData() {
       x: window.innerWidth * template.x - width * 0.5,
       y: window.innerHeight * template.y - height * 0.5,
       rotation: template.r,
-      zIndex: String(8 + index)
+      zIndex: String(10 + index)
     };
   });
 }

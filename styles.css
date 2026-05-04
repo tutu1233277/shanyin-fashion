@@ -74,12 +74,13 @@ button {
 .side-nav {
   position: fixed;
   top: 24px;
-  left: 50%;
-  transform: translateX(-50%);
+  left: 0;
+  right: 0;
   z-index: 32;
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: center;
   gap: clamp(26px, 4vw, 54px);
   pointer-events: auto;
 }
@@ -97,6 +98,23 @@ button {
   line-height: 1;
   font-weight: 400;
   letter-spacing: -0.04em;
+}
+
+.detail-page .side-nav {
+  color: var(--text);
+}
+
+.detail-page .side-nav-item {
+  color: rgba(23, 23, 23, 0.38);
+}
+
+.signature-mark {
+  position: fixed;
+  top: 22px;
+  right: 28px;
+  z-index: 34;
+  width: clamp(82px, 9vw, 132px);
+  pointer-events: none;
 }
 
 .background-layer {
@@ -510,19 +528,19 @@ button {
 .detail-shell {
   width: min(1280px, calc(100vw - 48px));
   margin: 0 auto;
-  padding: 28px 0 64px;
+  padding: 110px 0 64px;
 }
 
 .detail-layout {
   display: grid;
-  grid-template-columns: minmax(260px, 0.86fr) minmax(0, 1.34fr);
-  gap: 44px;
+  grid-template-columns: minmax(320px, 1fr) minmax(0, 1.08fr);
+  gap: 52px;
   align-items: start;
 }
 
 .detail-sidebar {
   position: sticky;
-  top: 24px;
+  top: 110px;
   display: grid;
   gap: 18px;
   align-content: start;
@@ -530,10 +548,11 @@ button {
 
 .detail-sidebar h1 {
   margin: 0;
-  font-family: "Cormorant Garamond", serif;
-  font-size: clamp(42px, 4.6vw, 78px);
-  line-height: 0.94;
-  font-weight: 500;
+  font-family: "Manrope", sans-serif;
+  font-size: clamp(22px, 1.9vw, 32px);
+  line-height: 1.12;
+  font-weight: 700;
+  letter-spacing: -0.02em;
 }
 
 .detail-text-block {
@@ -553,8 +572,13 @@ button {
 .detail-text-block p,
 .detail-award {
   margin: 0;
-  font-size: 15px;
-  line-height: 1.65;
+  font-size: 16px;
+  line-height: 1.7;
+  text-align: justify;
+  text-align-last: left;
+  hyphens: auto;
+  overflow-wrap: break-word;
+  word-break: normal;
   color: rgba(23, 23, 23, 0.82);
 }
 
@@ -669,6 +693,11 @@ button {
     top: auto;
   }
 
+  .signature-mark {
+    width: 82px;
+    right: 18px;
+  }
+
   .project-two-card {
     width: clamp(132px, var(--card-width, 24vw), 250px);
   }
@@ -702,14 +731,20 @@ button {
 
   .side-nav {
     top: 16px;
+    left: 16px;
+    right: 16px;
     gap: 18px;
-    width: calc(100vw - 32px);
+    width: auto;
     justify-content: center;
     flex-wrap: wrap;
   }
 
   .side-nav-label {
     font-size: 14px;
+  }
+
+  .detail-page .side-nav {
+    right: 96px;
   }
 
   .hero-copy h1,
@@ -728,6 +763,7 @@ button {
 
   .detail-shell {
     width: min(100vw - 24px, 1280px);
+    padding-top: 118px;
     padding-bottom: 40px;
   }
 
