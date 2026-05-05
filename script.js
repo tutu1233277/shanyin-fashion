@@ -329,23 +329,24 @@ function applyHeroFinalLayout(animate = true) {
 function getProjectGridMetrics() {
   const mobile = window.innerWidth < 720;
   const columns = mobile ? 2 : 3;
-  const gap = mobile ? 20 : 36;
-  const sidePadding = mobile ? 18 : 48;
+  const gap = mobile ? 18 : 20;
+  const sidePadding = mobile ? 16 : 72;
+  const offsetX = mobile ? 24 : 128;
   const topPadding = mobile ? 72 : 88;
-  const contentWidth = window.innerWidth - sidePadding * 2;
+  const contentWidth = window.innerWidth - sidePadding * 2 - offsetX;
   const columnWidth = (contentWidth - gap * (columns - 1)) / columns;
-  const baseWidth = columnWidth * 0.78;
-  return { columns, gap, sidePadding, topPadding, baseWidth, columnWidth };
+  const baseWidth = columnWidth * (mobile ? 0.86 : 0.83);
+  return { columns, gap, sidePadding, offsetX, topPadding, baseWidth, columnWidth };
 }
 
 function getProjectGridLayout(index) {
-  const { columns, gap, sidePadding, topPadding, baseWidth, columnWidth } = getProjectGridMetrics();
+  const { columns, gap, sidePadding, offsetX, topPadding, baseWidth, columnWidth } = getProjectGridMetrics();
   const heights = Array(columns).fill(topPadding);
 
   for (let i = 0; i <= index; i += 1) {
     const column = heights.indexOf(Math.min(...heights));
     const width = baseWidth;
-    const x = sidePadding + column * (columnWidth + gap) + (columnWidth - width) / 2;
+    const x = sidePadding + offsetX + column * (columnWidth + gap) + (columnWidth - width) / 2;
     const y = heights[column];
     const height = estimateHeight(width, allItems[i].src);
     heights[column] += height + gap;
@@ -449,6 +450,7 @@ function syncGradientState() {
   const inSecondPage = window.scrollY >= secondPageStart;
   siteGradient.classList.toggle("site-gradient-green", inSecondPage);
   siteGradient.classList.toggle("site-gradient-blue", !inSecondPage);
+  coverShell?.classList.toggle("is-side-nav", inSecondPage);
 }
 
 function queueLayoutRefresh() {
@@ -468,9 +470,66 @@ function queueLayoutRefresh() {
   });
 }
 
+function markRevealElements() {
+  const revealTargets = [
+    { selector: ".project-gallery-viewport", reveal: "image", delay: "0" },
+    { selector: ".exhibition-entry .exhibition-heading", reveal: "soft", delay: "0" },
+    { selector: ".exhibition-entry .exhibition-copy > p", reveal: "soft", delay: "1" },
+    { selector: ".exhibition-entry .exhibition-media", reveal: "image", delay: "2" },
+    { selector: ".about-intro", reveal: "soft", delay: "0" },
+    { selector: ".about-block", reveal: "soft", delay: "1" },
+    { selector: ".contact-block", reveal: "soft", delay: "2" },
+    { selector: ".about-portrait", reveal: "image", delay: "3" }
+  ];
+
+  revealTargets.forEach(({ selector, reveal, delay }) => {
+    document.querySelectorAll(selector).forEach((element) => {
+      element.classList.add("reveal-on-scroll");
+      element.dataset.reveal = reveal;
+      if (delay !== "0") {
+        element.dataset.revealDelay = delay;
+      }
+    });
+  });
+}
+
+function setupScrollReveals() {
+  const elements = document.querySelectorAll(".reveal-on-scroll");
+  if (!elements.length) {
+    return;
+  }
+
+  if (typeof IntersectionObserver === "undefined") {
+    elements.forEach((element) => element.classList.add("is-visible"));
+    return;
+  }
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) {
+          return;
+        }
+
+        entry.target.classList.add("is-visible");
+        observer.unobserve(entry.target);
+      });
+    },
+    {
+      root: null,
+      rootMargin: "0px 0px -10% 0px",
+      threshold: 0.12
+    }
+  );
+
+  elements.forEach((element) => observer.observe(element));
+}
+
 function setupHome() {
   buildHeroGallery();
   buildProjectGallery();
+  markRevealElements();
+  setupScrollReveals();
   hideProjectHitAreas();
   clearProjectFocus();
   applyHeroIdleLayout(false);
