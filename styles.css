@@ -217,6 +217,18 @@ button {
     transform 0.52s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
+.side-nav-item.is-active {
+  color: #171717;
+}
+
+.home-top-nav .side-nav-item.is-active {
+  opacity: 1;
+}
+
+.cover-shell.is-side-nav .home-side-nav .side-nav-item.is-active {
+  color: #171717;
+}
+
 .side-nav-label {
   font-size: clamp(16px, 1.15vw, 22px);
   line-height: 1;

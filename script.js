@@ -11,6 +11,7 @@ const projectGalleryTrack = document.getElementById("projectGalleryTrack");
 const projectGalleryHitLayer = document.getElementById("projectGalleryHitLayer");
 const siteGradient = document.getElementById("siteGradient");
 const projectTwoPanel = document.getElementById("projects");
+const homeNavLinks = Array.from(document.querySelectorAll('.side-nav-item[href^="#"]'));
 
 const allItems = [
   { src: "首图/1首图.png", href: "project-1.html" },
@@ -453,6 +454,48 @@ function syncGradientState() {
   coverShell?.classList.toggle("is-side-nav", inSecondPage);
 }
 
+function syncActiveNav() {
+  if (!homeNavLinks.length) {
+    return;
+  }
+
+  const sectionIds = ["home", "projects", "exhibitions", "about", "contact"];
+  const sections = sectionIds
+    .map((id) => document.getElementById(id))
+    .filter(Boolean);
+
+  if (!sections.length) {
+    return;
+  }
+
+  const viewportMarker = window.innerHeight * 0.36;
+  let activeId = sections[0].id;
+  let bestSection = null;
+
+  sections.forEach((section) => {
+    const rect = section.getBoundingClientRect();
+    const containsMarker = rect.top <= viewportMarker && rect.bottom >= viewportMarker;
+
+    if (containsMarker) {
+      bestSection = section.id;
+      return;
+    }
+
+    if (rect.top <= viewportMarker) {
+      activeId = section.id;
+    }
+  });
+
+  if (bestSection) {
+    activeId = bestSection;
+  }
+
+  homeNavLinks.forEach((link) => {
+    const isActive = link.getAttribute("href") === `#${activeId}`;
+    link.classList.toggle("is-active", isActive);
+  });
+}
+
 function queueLayoutRefresh() {
   if (layoutRefreshQueued) {
     return;
@@ -543,6 +586,7 @@ function setupHome() {
   gsap.set(backgroundLayer, { opacity: 0, scale: 1.08 });
   stopVinylSpin();
   syncGradientState();
+  syncActiveNav();
 }
 
 setupHome();
@@ -555,12 +599,14 @@ window.addEventListener("resize", () => {
   }
   applyProjectGridLayout(false);
   syncGradientState();
+  syncActiveNav();
 });
 
 window.addEventListener(
   "scroll",
   () => {
     syncGradientState();
+    syncActiveNav();
   },
   { passive: true }
 );
