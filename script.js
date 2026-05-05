@@ -12,6 +12,7 @@ const projectGalleryHitLayer = document.getElementById("projectGalleryHitLayer")
 const siteGradient = document.getElementById("siteGradient");
 const projectTwoPanel = document.getElementById("projects");
 const homeNavLinks = Array.from(document.querySelectorAll('.side-nav-item[href^="#"]'));
+const homeHeroReturnKey = "homeHeroReturnState";
 
 const allItems = [
   { src: "首图/1首图.png", href: "project-1.html" },
@@ -52,6 +53,26 @@ let projectHitAreas = [];
 let heroState = "idle";
 let layoutRefreshQueued = false;
 let loopHeight = 0;
+
+function rememberHomeHeroReturnState() {
+  try {
+    window.sessionStorage.setItem(homeHeroReturnKey, "open");
+  } catch (error) {
+    // Ignore storage failures so navigation still works.
+  }
+}
+
+function consumeHomeHeroReturnState() {
+  try {
+    const shouldRestore = window.sessionStorage.getItem(homeHeroReturnKey) === "open";
+    if (shouldRestore) {
+      window.sessionStorage.removeItem(homeHeroReturnKey);
+    }
+    return shouldRestore;
+  } catch (error) {
+    return false;
+  }
+}
 
 function getRatio(src) {
   return imageRatios.get(src) || 0.78;
@@ -111,6 +132,7 @@ function createHeroCard(item) {
   if (item.href) {
     media.href = item.href;
     media.setAttribute("aria-label", "Open project detail");
+    media.addEventListener("click", rememberHomeHeroReturnState);
   }
 
   media.appendChild(createImage(item));
@@ -140,6 +162,7 @@ function createProjectHitArea(item, index, duplicate = false) {
     hit.classList.add("is-link");
     hit.href = item.href;
     hit.setAttribute("aria-label", "Open project detail");
+    hit.addEventListener("click", rememberHomeHeroReturnState);
   } else {
     hit.type = "button";
     hit.tabIndex = -1;
@@ -522,6 +545,8 @@ function markRevealElements() {
     { selector: ".about-intro", reveal: "soft", delay: "0" },
     { selector: ".about-block", reveal: "soft", delay: "1" },
     { selector: ".contact-block", reveal: "soft", delay: "2" },
+    { selector: ".contact-standalone-shell .about-kicker, .contact-standalone-intro", reveal: "soft", delay: "0" },
+    { selector: ".contact-standalone-item", reveal: "soft", delay: "1" },
     { selector: ".about-portrait", reveal: "image", delay: "3" }
   ];
 
@@ -568,6 +593,21 @@ function setupScrollReveals() {
   elements.forEach((element) => observer.observe(element));
 }
 
+function restoreHeroOpenState() {
+  heroState = "open";
+  coverShell?.setAttribute("data-state", "open");
+  vinylTrigger?.setAttribute("aria-label", "Album opened");
+  applyHeroFinalLayout(false);
+
+  gsap.set(vinylState2, { opacity: 1, scale: 0.92, rotation: 0 });
+  gsap.set(vinylState1, { opacity: 0, scale: 1.12 });
+  gsap.set(vinylSpinLayer, { opacity: 1, rotation: 0 });
+  gsap.set(vinylInner, { x: 56, y: 0, scale: 0.08, rotation: 5.5, opacity: 0 });
+  gsap.set(heroGalleryViewport, { opacity: 1 });
+  gsap.set(backgroundLayer, { opacity: 1, scale: 1 });
+  startVinylSpin();
+}
+
 function setupHome() {
   buildHeroGallery();
   buildProjectGallery();
@@ -585,6 +625,17 @@ function setupHome() {
   gsap.set(heroGalleryViewport, { opacity: 0 });
   gsap.set(backgroundLayer, { opacity: 0, scale: 1.08 });
   stopVinylSpin();
+
+  const heroSearchState = new URLSearchParams(window.location.search).get("hero");
+  const shouldRestoreHero = heroSearchState === "open" || consumeHomeHeroReturnState();
+  if (shouldRestoreHero) {
+    restoreHeroOpenState();
+    if (heroSearchState === "open") {
+      const cleanHash = window.location.hash || "#home";
+      window.history.replaceState(null, "", `${window.location.pathname}${cleanHash}`);
+    }
+  }
+
   syncGradientState();
   syncActiveNav();
 }
